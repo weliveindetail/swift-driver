@@ -485,6 +485,7 @@ extension Option {
   public static let glineTablesOnly: Option = Option("-gline-tables-only", .flag, attributes: [.frontend], helpText: "Emit minimal debug info for backtraces only", group: .g)
   public static let gnone: Option = Option("-gnone", .flag, attributes: [.frontend], helpText: "Don't emit debug info", group: .g)
   public static let groupInfoPath: Option = Option("-group-info-path", .separate, attributes: [.frontend, .noDriver, .cacheInvariant], helpText: "The path to collect the group information of the compiled module")
+  public static let gsplitDwarf: Option = Option("-gsplit-dwarf", .flag, attributes: [.frontend], helpText: "Emit debug info as split-DWARF (Fission) in separate .dwo/.dwp files", group: .g)
   public static let legacyGsil: Option = Option("-gsil", .flag, attributes: [.helpHidden, .frontend, .noDriver], helpText: "Deprecated, use '-sil-based-debuginfo' instead")
   public static let g: Option = Option("-g", .flag, attributes: [.frontend], helpText: "Emit debug info. This is the preferred setting for debugging with LLDB.", group: .g)
   public static let helpHidden: Option = Option("-help-hidden", .flag, attributes: [.helpHidden, .frontend], helpText: "Display available options, including hidden options")
@@ -1282,6 +1283,7 @@ extension Option {
       Option.glineTablesOnly,
       Option.gnone,
       Option.groupInfoPath,
+      Option.gsplitDwarf,
       Option.legacyGsil,
       Option.g,
       Option.helpHidden,
