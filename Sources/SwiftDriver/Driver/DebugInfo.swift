@@ -47,6 +47,8 @@
   /// The DWARF standard version to be produced.
   public let dwarfVersion: UInt8
 
+  public let dwarfFission: Bool
+
   /// The level of debug information.
   public let level: Level?
 

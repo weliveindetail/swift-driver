@@ -2361,7 +2361,7 @@ extension Driver {
         level = .dwarfTypes
 
       default:
-        fatalError("Unhandle option in the '-g' group")
+        fatalError("Unhandled option in the '-g' group")
       }
     } else {
       // -gnone, or no debug level specified
@@ -2406,7 +2406,15 @@ extension Driver {
       }
     }
 
-    return DebugInfo(format: format, dwarfVersion: dwarfVersion, level: level, shouldVerify: shouldVerify)
+    let dwarfFissionEnabled = parsedOptions.hasArgument(.dwarfFission)
+    if dwarfFissionEnabled {
+      if format == .codeView {
+        let fullNotAllowedOption = Option.debugInfoFormat.spelling + format.rawValue
+        diagnosticsEngine.emit(.error_argument_not_allowed_with(arg: fullNotAllowedOption, other: Option.dwarfFission.spelling))
+      }
+    }
+
+    return DebugInfo(format: format, dwarfVersion: dwarfVersion, dwarfFission: dwarfFissionEnabled, level: level, shouldVerify: shouldVerify)
   }
 
   /// Parses the set of `-sanitize={sanitizer}` arguments and returns all the
