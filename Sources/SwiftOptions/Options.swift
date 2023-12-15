@@ -278,6 +278,7 @@ extension Option {
   public static let dumpTypeRefinementContexts: Option = Option("-dump-type-refinement-contexts", .flag, attributes: [.frontend, .noInteractive, .doesNotAffectIncrementalBuild], helpText: "Type-check input file(s) and dump type refinement contexts(s)", group: .modes)
   public static let dumpTypeWitnessSystems: Option = Option("-dump-type-witness-systems", .flag, attributes: [.helpHidden, .frontend, .noDriver], helpText: "Enables dumping type witness systems from associated type inference")
   public static let dumpUsr: Option = Option("-dump-usr", .flag, attributes: [.frontend, .noInteractive], helpText: "Dump USR for each declaration reference")
+  public static let dwarfFission: Option = Option("-dwarf-fission", .flag, attributes: [.frontend], helpText: "Emit debug info as split-DWARF (Fission) in a separate .dwo file")
   public static let dwarfVersion: Option = Option("-dwarf-version=", .joined, attributes: [.frontend], metaVar: "<version>", helpText: "DWARF debug info version to produce if requested")
   public static let D: Option = Option("-D", .joinedOrSeparate, attributes: [.frontend], helpText: "Marks a conditional compilation flag as true")
   public static let embedBitcodeMarker: Option = Option("-embed-bitcode-marker", .flag, attributes: [.frontend, .noInteractive], helpText: "Embed placeholder LLVM IR data as a marker")
@@ -733,6 +734,7 @@ extension Option {
   public static let solverExpressionTimeThresholdEQ: Option = Option("-solver-expression-time-threshold=", .joined, attributes: [.helpHidden, .frontend, .noDriver])
   public static let solverMemoryThreshold: Option = Option("-solver-memory-threshold", .separate, attributes: [.helpHidden, .frontend, .doesNotAffectIncrementalBuild], helpText: "Set the upper bound for memory consumption, in bytes, by the constraint solver")
   public static let solverShrinkUnsolvedThreshold: Option = Option("-solver-shrink-unsolved-threshold", .separate, attributes: [.helpHidden, .frontend, .doesNotAffectIncrementalBuild], helpText: "Set The upper bound to number of sub-expressions unsolved before termination of the shrink phrase")
+  public static let emitSplitDwarfPath: Option = Option("-split-dwarf-output", .separate, attributes: [.frontend, .noInteractive, .argumentIsPath, .supplementaryOutput], helpText: "Output debug info as split-DWARF (Fission) .dwo file to <path>")
   public static let stackPromotionLimit: Option = Option("-stack-promotion-limit", .separate, attributes: [.helpHidden, .frontend, .noDriver], helpText: "Limit the size of stack promoted objects to the provided number of bytes.")
   public static let staticExecutable: Option = Option("-static-executable", .flag, helpText: "Statically link the executable")
   public static let staticStdlib: Option = Option("-static-stdlib", .flag, attributes: [.doesNotAffectIncrementalBuild], helpText: "Statically link the Swift standard library")
@@ -1105,6 +1107,7 @@ extension Option {
       Option.dumpTypeRefinementContexts,
       Option.dumpTypeWitnessSystems,
       Option.dumpUsr,
+      Option.dwarfFission,
       Option.dwarfVersion,
       Option.D,
       Option.embedBitcodeMarker,
@@ -1560,6 +1563,7 @@ extension Option {
       Option.solverExpressionTimeThresholdEQ,
       Option.solverMemoryThreshold,
       Option.solverShrinkUnsolvedThreshold,
+      Option.emitSplitDwarfPath,
       Option.stackPromotionLimit,
       Option.staticExecutable,
       Option.staticStdlib,
